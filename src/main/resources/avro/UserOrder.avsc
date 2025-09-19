@@ -1,0 +1,43 @@
+{
+  "fields": [
+    {
+      "default": null,
+      "name": "userName",
+      "doc": "User Name",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "orderSize",
+      "doc": "Order Size",
+      "type": [
+        "null",
+        "int"
+      ]
+    },
+    {
+      "default": null,
+      "name": "orderNumber",
+      "doc": "Order Number",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "productName",
+      "doc": "Product Name",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "name": "UserOrder",
+  "namespace": "io.demo.model",
+  "type": "record"
+}

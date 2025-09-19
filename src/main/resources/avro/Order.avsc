@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "doc": "Order Number",
+      "name": "orderNumber",
+      "type": "string"
+    },
+    {
+      "doc": "Product name",
+      "name": "productName",
+      "type": "string"
+    },
+    {
+      "doc": "Order Size",
+      "name": "orderSize",
+      "type": "int"
+    }
+  ],
+  "name": "Order",
+  "namespace": "io.demo.model",
+  "type": "record"
+}

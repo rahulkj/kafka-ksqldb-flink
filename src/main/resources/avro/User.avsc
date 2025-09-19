@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "doc": "User Name",
+      "name": "userName",
+      "type": "string"
+    },
+    {
+      "doc": "age",
+      "name": "age",
+      "type": "int"
+    },
+    {
+      "doc": "Order Number",
+      "name": "orderNumber",
+      "type": "string"
+    }
+  ],
+  "name": "User",
+  "namespace": "io.demo.model",
+  "type": "record"
+}

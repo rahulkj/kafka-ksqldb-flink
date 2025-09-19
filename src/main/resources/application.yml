@@ -1,0 +1,56 @@
+---
+spring:
+  application:
+    name: kafka-demo
+
+# Required connection configs for Kafka producer, consumer, and admin
+  kafka:
+    bootstrap-servers:
+    - pkc-921jm.us-east-2.aws.confluent.cloud:9092
+    
+    security:
+      protocol: SASL_SSL
+      
+    properties:
+      session:
+        timeout:
+          ms: 45000
+      sasl:
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='FI' password='cfG4y8hudw';
+      schema:
+        registry:
+          url: https://psrc-13rg3dy.us-east-2.aws.confluent.cloud
+      basic:
+        auth:
+          credentials:
+            source: USER_INFO
+          user:
+            info: "7EM:ckHVZ2A"
+      
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        auto:
+          register:
+            schemas: false
+        use:
+          latest:
+            version: true
+      
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      group-id: my-consumer-group       # Unique consumer group ID
+      auto-offset-reset: latest       # Start from the earliest message
+      enable-auto-commit: false
+      properties:
+        specific:
+          avro:
+            reader: true
+    
+    listener:
+      ack-mode: manual                  # Manual acknowledgment mode
+      type: batch 
