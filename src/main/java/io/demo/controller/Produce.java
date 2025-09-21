@@ -15,7 +15,7 @@ public class Produce {
 	private Producer producer;
 	
 	@PostMapping("/generate")
-	public ResponseEntity<String> createOrder(@RequestParam(name = "records", defaultValue = "10") int records) {
+	public ResponseEntity<String> createOrder(@RequestParam(defaultValue = "10") int records) {
 		producer.publishOrder(records);
 		return ResponseEntity.ok("Orders processed successfully");
 	}

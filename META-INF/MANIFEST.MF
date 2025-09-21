@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: kafka-demo
+Bundle-SymbolicName: kafka-demo
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: kafka.demo
+Export-Package: avro,
+ io.demo,
+ io.demo.controller,
+ io.demo.model,
+ io.demo.service

@@ -31,8 +31,8 @@ public class Producer {
 				if (ex == null) {
 					System.out.println(result.getRecordMetadata().topic() + " " + result.getRecordMetadata().partition()
 							+ " " + result.getRecordMetadata().offset());
-					logger.info(String.format("\n\n Produced event to topic %s: key = %-10s value = %s \n\n", topic,
-							value));
+					logger.info("\n\n Produced event to topic %s: key = %-10s value = %s \n\n".formatted(topic,
+                            value));
 				} else {
 					ex.printStackTrace();
 				}

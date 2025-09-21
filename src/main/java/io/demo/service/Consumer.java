@@ -17,7 +17,7 @@ public class Consumer {
 	@KafkaListener(id = "consolConsumer", topics = "user_order", groupId = "consolConsumer-group", autoStartup = "true")
 	public void listen(List<UserOrder> userOrders) {
 		for (UserOrder userOrder : userOrders) {			
-			logger.info(String.format("\n\n Consumed event from topic %s: \n\n", userOrder));
+			logger.info("\n\n Consumed event from topic %s: \n\n".formatted(userOrder));
 		}
 	}
 }

@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.0'
+	id 'org.springframework.boot' version '3.5.6'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id("com.github.davidmc24.gradle.plugin.avro") version "1.9.1"
 }
@@ -15,9 +15,8 @@ group = 'io.demo'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    sourceCompatibility = JavaVersion.VERSION_24
+    targetCompatibility = JavaVersion.VERSION_24
 }
 
 repositories {
@@ -30,7 +29,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.apache.kafka:kafka-streams'
-	implementation 'org.springframework.kafka:spring-kafka'
+	implementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    implementation 'org.springframework.kafka:spring-kafka'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -49,6 +49,7 @@ tasks.named('test') {
 }
 
 def avroGeneratedDir = layout.buildDirectory.dir("avroGenerated")
+//def avroGeneratedDir = "src/main/resources/avro"
 sourceSets.main.java.srcDir(avroGeneratedDir)
 
 tasks.register("avroCompileSchema", JavaExec) {
