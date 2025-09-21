@@ -11,7 +11,7 @@ spring:
       useroder-topic: user_order
 
     bootstrap-servers:
-    - ${{KAFKA_SERVERS}}
+    - ${KAFKA_SERVERS}
     
     security:
       protocol: SASL_SSL
@@ -23,16 +23,16 @@ spring:
       sasl:
         mechanism: PLAIN
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${{KAFKA_CLIENT_ID}} password=${{KAFKA_CLIENT_SECRET}};
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${KAFKA_CLIENT_ID} password=${KAFKA_CLIENT_SECRET};
       schema:
         registry:
-          url: ${{SR_URL}}
+          url: ${SR_URL}
       basic:
         auth:
           credentials:
             source: USER_INFO
           user:
-            info: "${{SR_CLIENT_ID}}:${{SR_CLIENT_SECRET}}"
+            info: "${SR_CLIENT_ID}:${SR_CLIENT_SECRET}"
       
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
