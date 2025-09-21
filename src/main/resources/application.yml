@@ -5,8 +5,13 @@ spring:
 
 # Required connection configs for Kafka producer, consumer, and admin
   kafka:
+    topics:
+      user-topic: users
+      order-topic: orders
+      useroder-topic: user_order
+
     bootstrap-servers:
-    - pkc-921jm.us-east-2.aws.confluent.cloud:9092
+    - ${{KAFKA_SERVERS}}
     
     security:
       protocol: SASL_SSL
@@ -18,16 +23,16 @@ spring:
       sasl:
         mechanism: PLAIN
         jaas:
-          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='FI' password='cfG4y8hudw';
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${{KAFKA_CLIENT_ID}} password=${{KAFKA_CLIENT_SECRET}};
       schema:
         registry:
-          url: https://psrc-13rg3dy.us-east-2.aws.confluent.cloud
+          url: ${{SR_URL}}
       basic:
         auth:
           credentials:
             source: USER_INFO
           user:
-            info: "7EM:ckHVZ2A"
+            info: "${{SR_CLIENT_ID}}:${{SR_CLIENT_SECRET}}"
       
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -43,7 +48,7 @@ spring:
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-      group-id: my-consumer-group       # Unique consumer group ID
+      group-id: demo-consumer-group       # Unique consumer group ID
       auto-offset-reset: latest       # Start from the earliest message
       enable-auto-commit: false
       properties:

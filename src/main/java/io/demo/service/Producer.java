@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,12 @@ import io.demo.model.User;
 public class Producer {
 
 	private static final Logger logger = LoggerFactory.getLogger(Producer.class);
-	private static final String USERS_TOPIC = "users";
-	private static final String ORDERS_TOPIC = "orders";
+	
+	@Value("${spring.kafka.topics.user-topic}")
+	private String USERS_TOPIC = "users";
+	
+	@Value("${spring.kafka.topics.order-topic}")
+	private String ORDERS_TOPIC = "orders";
 
 	@Autowired
 	private KafkaTemplate<String, Object> kafkaTemplate;

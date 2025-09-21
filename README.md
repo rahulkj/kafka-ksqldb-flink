@@ -65,63 +65,6 @@ confluent schema-registry schema delete --subject userorder-value --version 10 -
 ## USING FLINK
 
 ```
-confluent kafka topic create userorder
-```
-
-```
-## Register the schema for this topic
-
-{
-  "connect.name": "io.demo.model.UserOrder",
-  "fields": [
-    {
-      "default": null,
-      "name": "userName",
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    {
-      "default": null,
-      "name": "orderSize",
-      "type": [
-        "null",
-        "int"
-      ]
-    },
-    {
-      "default": null,
-      "name": "orderNumber",
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    {
-      "default": null,
-      "name": "productName",
-      "type": [
-        "null",
-        "string"
-      ]
-    }
-  ],
-  "name": "UserOrder",
-  "namespace": "io.demo.model",
-  "type": "record"
-}
-
-```
-
-```
-ALTER TABLE userorder SET (
-  'changelog.mode' = 'retract'
-)
-```
-
-
-```
 INSERT INTO `user_order`
 SELECT
   CAST(u.`userName` AS BYTES),
@@ -148,7 +91,7 @@ GROUP BY
 ```
 
 ```
-CREATE TABLE `rjain`.`demo_cluster`.`users` (
+CREATE TABLE `rj`.`cluster`.`users` (
   `key` VARBINARY(2147483647),
   `userName` VARCHAR(2147483647) NOT NULL COMMENT 'User Name',
   `age` INTEGER NOT NULL COMMENT 'age',
@@ -169,7 +112,7 @@ WITH (
   'value.format' = 'avro-registry'
 )
 
-CREATE TABLE `rjain`.`demo_cluster`.`orders` (
+CREATE TABLE `rj`.`cluster`.`orders` (
   `key` VARBINARY(2147483647),
   `orderNumber` VARCHAR(2147483647) NOT NULL COMMENT 'Order Number',
   `productName` VARCHAR(2147483647) NOT NULL COMMENT 'Product name',
@@ -190,7 +133,7 @@ WITH (
   'value.format' = 'avro-registry'
 )
 
-CREATE TABLE `rjain`.`demo_cluster`.`user_order` (
+CREATE TABLE `rj`.`cluster`.`user_order` (
   `key` VARBINARY(2147483647),
   `userName` VARCHAR(2147483647) NOT NULL COMMENT 'User Name',
   `orderSize` INT NOT NULL COMMENT 'Order Size',
@@ -199,7 +142,7 @@ CREATE TABLE `rjain`.`demo_cluster`.`user_order` (
 )
 DISTRIBUTED BY HASH(`key`) INTO 6 BUCKETS
 WITH (
-  'changelog.mode' = 'append',
+  'changelog.mode' = 'retract',
   'connector' = 'confluent',
   'kafka.cleanup-policy' = 'compact',
   'kafka.compaction.time' = '0 ms',
@@ -212,3 +155,16 @@ WITH (
   'value.format' = 'avro-registry'
 )
 ```
+
+Navigate to Schema Registry and update the schema with the values from
+* [User.avsc](./src/main/resources/avro/User.avsc)
+* [Order.avsc](./src/main/resources/avro/Order.avsc)
+* [UserOrder.avsc](./src/main/resources/avro/UserOrder.avsc)
+
+Set the environment variables:
+* KAFKA_SERVERS
+* KAFKA_CLIENT_ID
+* KAFKA_CLIENT_SECRET
+* SR_URL
+* SR_CLIENT_ID
+* SR_CLIENT_SECRET
