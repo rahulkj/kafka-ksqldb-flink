@@ -6,7 +6,7 @@ COMBINE TOPICS TO ENRICH DATA
 ```
 CREATE TABLE USER (
   userName VARCHAR PRIMARY KEY,
-  gender VARCHAR,
+  age INTEGER,
   orderNumber VARCHAR
 ) WITH (
   KAFKA_TOPIC='users',
@@ -28,7 +28,7 @@ CREATE TABLE ORDER (
 ```
 
 ```
-CREATE TABLE USER_ORDER WITH (KAFKA_TOPIC='userorder', VALUE_FORMAT='AVRO', VALUE_SCHEMA_FULL_NAME='io.demo.model.UserOrder') AS 
+CREATE TABLE USER_ORDER WITH (KAFKA_TOPIC='user_order', VALUE_FORMAT='AVRO', VALUE_SCHEMA_FULL_NAME='io.demo.model.UserOrder') AS 
   SELECT
     u.userName as ROWKEY,
     AS_VALUE(u.userName) as userName, 
